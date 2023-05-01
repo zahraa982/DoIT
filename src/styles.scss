@@ -1,0 +1,226 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$DoIT-primary: mat.define-palette(mat.$indigo-palette);
+$DoIT-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$DoIT-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$DoIT-theme: mat.define-light-theme((
+  color: (
+    primary: $DoIT-primary,
+    accent: $DoIT-accent,
+    warn: $DoIT-warn,
+
+
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($DoIT-theme);
+
+/* You can add global styles to this file, and also import other style files */
+// Variables
+$primary: rgb(211, 243, 241);
+$secondary: rgb(220, 173, 196);
+
+$active: rgba(23, 190, 187, 0.8);
+$busy: rgba(148, 100, 252, 0.8);
+$away: rgba(255, 253, 130, 0.8);
+$list:black;
+// Triangle Mixin
+@mixin triangle($color, $size, $direction) {
+  width: 0;
+  height: 0;
+  @if $direction == "up" {
+    border-right: ($size + px) solid transparent;
+    border-left: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid $color;
+  }
+  @if $direction == "down" {
+    border-right: ($size + px) solid transparent;
+    border-left: ($size + px) solid transparent;
+    border-top: ($size + px) solid $color;
+  } 
+  @if $direction == "right" {
+    border-top: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid transparent;
+    border-left: ($size + px) solid $color;
+  }
+  @if $direction == "left" {
+    border-top: ($size + px) solid transparent;
+    border-bottom: ($size + px) solid transparent;
+    border-right: ($size + px) solid $color;
+    }
+}
+
+* {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+html,body {
+  background: linear-gradient(120deg, $primary, $secondary);
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  h1 {
+    margin: 0.5em auto;
+    color: #000000;
+    text-align: center;
+  }
+}
+
+.chatbox {
+  background: rgba(255, 255, 255, 0.05);
+  width: 600px;
+  height: 75%;
+  border-radius: 0.2em;
+  position: relative;
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+  &__messages {
+    &:nth-of-type(odd) .chatbox__messages__user-message--ind-message {
+      float: right;
+      &:after {
+        content: '';
+        position: absolute;
+        margin: 1.5em ;
+        @include triangle(rgba(255, 255, 255, 0.2), 10, left);
+      }
+    }
+    &:nth-of-type(even) .chatbox__messages__user-message--ind-message {
+      float: left;
+      &:after {
+      content: '';
+      position: absolute;
+      margin: -1.5em 1.87em;
+      }
+    }
+  }
+  &__messages__user-message {
+    width: 450px;
+  }
+  &__messages__user-message--ind-message {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1em 0;
+    height: auto;
+    width: 65%;
+    border-radius: 5px;
+    margin:1em 1em;
+    overflow: auto;
+    & > p.name {
+      color:#0a0a0a;
+      font-size: 1em;
+    }
+    & > p.message {
+      color: black;
+      font-size: 0.7em;
+      margin: 0 2.8em;
+    }
+  }
+  &__user-list {
+    background: rgba(255, 255, 255, 0.1);
+    width: 25%;
+    height: 100%;
+    float: right;
+    border-top-right-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+    h1 {
+      background: rgba(255, 255, 255, 0.05);
+      color: rgba(19, 18, 18, 0.9);
+      font-size: 0.9em;
+      padding: 1em;
+      margin: 0;
+      font-weight: 300;
+      text-align: center;
+    }
+  }
+  &__user {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 100%;
+    margin: 1em 0.7em;
+    &--active {
+      @extend .chatbox__user;
+      background: $active;
+    }
+    &--busy {
+      @extend .chatbox__user;
+      background: $busy;
+    }
+    &--away {
+      @extend .chatbox__user;
+      background: $away;
+    }  &--list {
+      @extend .chatbox__user;
+      background: $list;
+    }
+  }
+  p {
+    float: left;
+    text-align: left;
+    margin: -0.25em 2em;
+    font-size: 0.7em;
+    font-weight: 300;
+    color: #111010;
+    width: 200px;
+  }
+  form {
+    background: #222;
+    input {
+      background: rgba(255, 255, 255, 0.03);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border: none;
+      width: 75%;
+      padding: 1.2em;
+      outline: none;
+      color: rgba(21, 20, 20, 0.9);
+      font-weight: 300;
+    }
+  }
+}
+
+// Placeholder Styling
+::-webkit-input-placeholder {
+   color: rgba(17, 17, 17, 0.9);
+}
+
+:-moz-placeholder {
+   color: rgba(7, 7, 7, 0.9);  
+}
+
+::-moz-placeholder {
+  color: rgba(12, 12, 12, 0.9);
+}
+
+:-ms-input-placeholder {  
+   color: rgba(16, 15, 15, 0.9);
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

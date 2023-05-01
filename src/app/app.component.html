@@ -1,0 +1,63 @@
+
+
+<div class='container' ng-cloak ng-app="chatApp">
+  <h1>Welcome to Alfanar Reservation App</h1>
+  <div class='chatbox' ng-controller="MessageCtrl as chatMessage">
+    <div class='chatbox__user-list'>
+      <h1>User list</h1>
+      <div class='chatbox__user--active'>
+        <p>Jack Thomson</p>
+      </div>
+      <div class='chatbox__user--busy'>
+        <p>Angelina Jolie</p>
+      </div>
+      <div class='chatbox__user--busy'>
+        <p>Peter Parson</p>
+      </div>
+      <div class='chatbox__user--active'>
+        <p>George Clooney</p>
+      </div>
+      <div class='chatbox__user--active'>
+        <p>Seth Rogen</p>
+      </div>
+      <div class='chatbox__user--away'>
+        <p>John Peterson</p>
+      </div>
+    </div>
+    <div class="chatbox__messages" ng-repeat="message in messages">
+      <div class="chatbox__messages__user-message">
+        <mat-tab-group id="Nav">
+          <mat-tab label="Buildings">
+            <div class="chatbox__messages__user-message--ind-message">
+              <p class="name">Buildings</p>
+              <br/>
+              <p class="message">Building-101,Bulding-102,Bulding-103</p>
+            </div>
+           </mat-tab>
+          <mat-tab class="name" label="Assets">
+            <div class="chatbox__messages__user-message--ind-message">
+              <p class="name">Assets</p>
+              <br/>
+              <p class="message">furniture,devices..etc</p>
+            </div>
+          </mat-tab>
+          <mat-tab label="Pending Requests">
+            <div class="chatbox__messages__user-message--ind-message">
+              <p class="name">Requests</p>
+              <br/>
+              <div class="chatbox__user--list">
+                 <p class="message">Assets Transfer</p>
+              </div>
+              <div class="chatbox__user--list">
+                <p class="message">Assets Report</p>
+             </div>
+             </div>
+         </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+    <form>
+      <input placeholder="Search">
+    </form>
+  </div>
+
